@@ -2,12 +2,11 @@ package fr.adaming.service;
 
 import java.util.List;
 
-import javax.ejb.Local;
+import fr.adaming.modele.Categorie;
+import fr.adaming.modele.Produit;
 
-import fr.adaming.dao.Categorie;
-import fr.adaming.dao.Produit;
 
-@Local
+
 public interface IProduitService {
 
 	public List<Produit> getProduitsCategorie(Categorie c);

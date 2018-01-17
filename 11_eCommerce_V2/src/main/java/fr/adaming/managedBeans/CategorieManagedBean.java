@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -24,7 +24,7 @@ import org.primefaces.model.UploadedFile;
 
 import java.awt.*;
 
-import fr.adaming.dao.Categorie;
+import fr.adaming.modele.Categorie;
 import fr.adaming.service.ICategorieService;
 import sun.misc.IOUtils;
 
@@ -32,7 +32,7 @@ import sun.misc.IOUtils;
 @SessionScoped
 public class CategorieManagedBean implements Serializable {
 
-	@EJB
+	@ManagedProperty(value="#{caService}")
 	private ICategorieService categorieService;
 
 	private Categorie categorie;
@@ -53,16 +53,13 @@ public class CategorieManagedBean implements Serializable {
 	public CategorieManagedBean() {
 		this.categorie = new Categorie();
 	}
-
-	// Getters & Setteres
-
-	public ICategorieService getCategorieService() {
-		return categorieService;
-	}
-
+	
+	// Setter pour l'injection dépendance
 	public void setCategorieService(ICategorieService categorieService) {
 		this.categorieService = categorieService;
 	}
+
+	// Getters & Setteres
 
 	public Categorie getCategorie() {
 		return categorie;

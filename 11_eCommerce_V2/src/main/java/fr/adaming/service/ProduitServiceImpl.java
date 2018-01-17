@@ -2,18 +2,18 @@ package fr.adaming.service;
 
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.Stateful;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import fr.adaming.dao.Categorie;
 import fr.adaming.dao.IProduitDao;
-import fr.adaming.dao.Produit;
+import fr.adaming.modele.Produit;
 
-@Stateful
+@Service("pService") // Déclarer la classe comme un bean (Service)
+@Transactional // Rendre toutes les méthodes transactionnables
 public class ProduitServiceImpl implements IProduitService{
 
-	@EJB
+	@Autowired
 	IProduitDao produitDao;
 
 	@Override

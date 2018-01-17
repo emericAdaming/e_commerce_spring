@@ -3,20 +3,21 @@ package fr.adaming.managedBeans;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
-import fr.adaming.dao.Admin;
+import fr.adaming.modele.Admin;
 import fr.adaming.service.IAdminService;
 
 @ManagedBean(name = "adminMB")
 @RequestScoped
 public class AdminManagedBean implements Serializable {
 
-	@EJB
+	@ManagedProperty(value="#{aService}")
 	private IAdminService adminService;
 
 	private Admin admin;
@@ -29,6 +30,11 @@ public class AdminManagedBean implements Serializable {
 		this.admin = new Admin();
 	}
 
+	// Setter pour l'injection dépendance (OBLIGATOIRE !!)
+	public void setAdminService(IAdminService adminService) {
+		this.adminService = adminService;
+	}
+	
 	// Getters & Setters
 
 	public Admin getAdmin() {
@@ -39,9 +45,6 @@ public class AdminManagedBean implements Serializable {
 		this.admin = admin;
 	}
 
-	public void setAdminService(IAdminService adminService) {
-		this.adminService = adminService;
-	}
 
 	@PostConstruct
 	public void init() {

@@ -2,18 +2,26 @@ package fr.adaming.service;
 
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import fr.adaming.dao.ILigneCommandeDao;
-import fr.adaming.dao.LigneCommande;
+import fr.adaming.modele.LigneCommande;
 
-@Stateless
+
+
+@Service("lcService") // Déclarer la classe comme un bean (Service)
+@Transactional // Rendre toutes les méthodes transactionnables
 public class LigneCommandeServiceImpl implements ILigneCommandeService{
 
-	@EJB
+	@Autowired
 	ILigneCommandeDao ligneCommandeDao;
 	
+	// Setter pour l'injection dépendance
+	public void setLigneCommandeDao(ILigneCommandeDao ligneCommandeDao) {
+		this.ligneCommandeDao = ligneCommandeDao;
+	}
+
 	@Override
 	public LigneCommande ajouterLigneCommande(LigneCommande ligne) {
 		// TODO Auto-generated method stub

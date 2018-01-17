@@ -1,21 +1,30 @@
 package fr.adaming.service;
 
-import javax.ejb.EJB;
-import javax.ejb.Stateful;
 
-import fr.adaming.dao.Client;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import fr.adaming.dao.IClientDao;
+import fr.adaming.modele.Client;
 
-@Stateful
+@Service("clService") // Déclarer la classe comme un bean (Service)
+@Transactional // Rendre toutes les méthodes transactionnables
 public class ClientServiceImpl implements IClientService{
 
-	@EJB
+	@Autowired
 	private IClientDao clientDao;
+	
+	// Setter pour l'injection dépendance (pas obligatoire ici)
+	public void setClientDao(IClientDao clientDao) {
+		this.clientDao = clientDao;
+	}
 	
 	@Override
 	public Client ajouterClient(Client c) {
 		// TODO Auto-generated method stub
 		return clientDao.ajouterClient(c);
 	}
+
 
 }

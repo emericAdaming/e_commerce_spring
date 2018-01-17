@@ -2,11 +2,10 @@ package fr.adaming.service;
 
 import java.util.List;
 
-import javax.ejb.Local;
+import fr.adaming.modele.LigneCommande;
 
-import fr.adaming.dao.LigneCommande;
 
-@Local
+
 public interface ILigneCommandeService {
 
 	public LigneCommande ajouterLigneCommande(LigneCommande ligne);

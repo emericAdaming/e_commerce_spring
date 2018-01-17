@@ -2,18 +2,26 @@ package fr.adaming.service;
 
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.Stateful;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import fr.adaming.dao.Categorie;
 import fr.adaming.dao.ICategorieDao;
+import fr.adaming.modele.Categorie;
 
-@Stateful
+@Service("caService") // Déclarer la classe comme un bean (Service)
+@Transactional // Rendre toutes les méthodes transactionnables
 public class CategorieServiceImpl implements ICategorieService{
 
-	@EJB
+	@Autowired
 	ICategorieDao categorieDao;
+	
+	// Setter pour l'injection dépendance (pas obligatoire ici)
+	public void setCategorieDao(ICategorieDao categorieDao) {
+		this.categorieDao = categorieDao;
+	}
+	
+	// Méthodes
 	
 	@Override
 	public List<Categorie> getAllCategories() {
