@@ -1,0 +1,44 @@
+<!DOCTYPE html >
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h ="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+
+<h:body>
+
+	<ui:insert name="pageHeader">
+		<ui:include src="/template/header.xhtml"></ui:include>
+	</ui:insert>
+
+	<h1 style="color:green;text-align:center"> Ajouter Produit</h1>
+	
+	<h:form>
+	<h:panelGrid columns="2">
+	
+	Description:<h:inputText value="#{produitMB.produit.description}"/>
+	Designation:<h:inputText value="#{produitMB.produit.designation}"/>
+	Prix:<h:inputText value="#{produitMB.produit.prix}"/>
+	Quantité:<h:inputText value="#{produitMB.produit.quantite}"/>
+	 <p:outputLabel for="ca" value="Categorie " />
+        <p:selectOneMenu id="ca" value="#{categorieMB.categorie.nomCategorie}">
+            <f:selectItem itemLabel="Select One" itemValue="" />
+            <f:selectItems value="#{categorieMB.categorie_designation}" />
+        </p:selectOneMenu>
+      
+     Photo:<p:fileUpload mode="advanced" auto="true" fileUploadListener="#{produitMB.upload}" update="idImgProduit" />    
+     <h:graphicImage id="idImgProduit"  value="#{produitMB.image}"/>   
+	
+	</h:panelGrid>
+	<p:commandButton value="Ajouter" action="#{produitMB.ajouterProduit}" >
+	<f:setPropertyActionListener value="#{categorieMB.categorie.nomCategorie}" target="#{produitMB.categorie.nomCategorie}"></f:setPropertyActionListener>
+	</p:commandButton>
+	</h:form>
+</h:body>
+
+</html>

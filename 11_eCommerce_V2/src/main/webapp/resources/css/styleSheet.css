@@ -1,0 +1,37 @@
+
+body{
+	/*background-image: url("#{ resource [ 'images/fond_noel_6.jpg' ]}");
+	background-image: url("#{ resource['images/neige_gif_1.gif']}");*/
+	background: url("#{ resource['images/fond_p1.jpg']}") fixed;
+	background-repeat: no-repeat;
+	background-size: cover;	
+}
+
+
+
+h1{
+	color:red;
+}
+
+.imageTaille{
+	max-width: 100%;
+	height: auto;
+	
+}
+
+
+
+.cont_etoile {
+   	margin:0;
+	padding:0;
+}
+.cont_etoile a {
+color: #aaa;
+   text-decoration: none;
+   font-size: 3em;
+   transition: color .4s;   
+}
+.cont_etoile a:hover{
+   color: orange;
+   cursor: pointer;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html >
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Barre Menu Admin</title>
+</h:head>
+
+<h:body>
+
+	<ui:composition>
+	
+		<h:form>  
+    <p:growl id="messages"/>
+ 
+    <p:menubar>
+
+
+            <p:menuitem icon="ui-icon-home" value="Accueil" url="accueil.xhtml"  />
+ 
+    
+        <p:submenu label="Categorie" >
+            <p:submenu label="Ajouter" >
+                <p:menuitem value="NEW categorie" url="ajoutCategorie.xhtml" />
+            </p:submenu>
+            <p:separator />
+            <p:menuitem value="Rechercher" url="rechercherCategorie.xhtml" />
+        </p:submenu>
+ 
+        <p:submenu label="Produits" >
+             <p:menuitem value="Ajouter" url="ajoutProduit.xhtml" />
+            <p:menuitem value="Recherche" url="rechercherProduit.xhtml" />
+        </p:submenu>
+ 
+	
+         <p:menuitem icon="ui-icon-suitcase" value="Panier" action="#{ligneCommandeMB.getAllLignes}" />
+   
+ 		<p:menuitem icon="ui-icon-extlink" value="logout admin" action="#{adminMB.seDeconnecter}"  />
+ 		<f:facet name="options">
+            <p:inputText style="margin-right:10px" placeholder="Search"/>
+            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" action="#{adminMB.seDeconnecter}" />         
+        </f:facet>
+ 		 
+    </p:menubar>
+</h:form>
+	</ui:composition>
+
+</h:body>
+
+</html>

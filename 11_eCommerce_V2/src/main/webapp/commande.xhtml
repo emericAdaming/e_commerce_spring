@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h ="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	
+<h:head>
+<title>Commande</title>
+</h:head>
+<h:body >
+
+<h1>Recapitulatif de la commande</h1>
+
+<f:metadata>
+    <f:event type="preRenderView" listener="#{clientMB.sendMail}" />
+</f:metadata>
+	
+
+ID <h:outputText value="#{commandeMB.commande.idCommande}"/>
+Client <h:outputText value="#{commandeMB.commande.client}"/>
+Date <h:outputText value="#{commandeMB.commande.dateCommande}"/>
+
+
+	
+	<p:dataTable var="ligne" value="#{sessionScope.listeLignes}">
+		<p:column headerText="ID">
+			<h:outputText value="#{ligne.id}" />
+		</p:column>
+
+		<p:column headerText="Prix">
+			<h:outputText value="#{ligne.prix}" />
+		</p:column>
+
+		<p:column headerText="Quantité">
+			<h:outputText value="#{ligne.quantite}" />
+		</p:column>
+
+		<p:column headerText="Produit">
+			<h:outputText value="#{ligne.produit.designation}" />
+		</p:column>
+
+		<p:column headerText="Supprimer">
+			<h:form>
+				<p:commandButton value="Supprimer"
+					action="#{ligneCommandeMB.supprimerLigneCommande}" update="@all">
+					<f:setPropertyActionListener value="#{ligne}"
+						target="#{ligneCommandeMB.ligne}"></f:setPropertyActionListener>
+				</p:commandButton>
+			</h:form>
+		</p:column>
+
+		<p:column headerText="Modifier Qté">
+			<h:form>
+				<h:inputText value="#{ligneCommandeMB.ligne.quantite}"
+					placeholder="Qté" />
+				<p:commandButton value="Modifier"
+					action="#{ligneCommandeMB.quantiteLigneCommande}" update="@all">
+					<f:setPropertyActionListener value="#{ligne.id}"
+						target="#{ligneCommandeMB.ligne.id}"></f:setPropertyActionListener>
+				</p:commandButton>
+			</h:form>
+		</p:column>
+
+	</p:dataTable>
+	
+	<h1 style="color:blue">Un mail vous a ete envoye !</h1>
+
+</h:body>
+</html>

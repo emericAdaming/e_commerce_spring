@@ -1,0 +1,41 @@
+<!DOCTYPE html >
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Barre Menu</title>
+</h:head>
+
+<h:body>
+
+	<ui:composition>
+	
+		<h:form>  
+    <p:growl id="messages"/>
+ 
+    <p:menubar style="background:rgba(225,225,225,0.9)">
+
+
+         <p:menuitem style="font-size:25px;font-weight:bold;margin-left:75px" icon="ui-icon-home" value="Accueil" url="accueil.xhtml"  />
+  
+ 
+         <p:menuitem style="font-size:25px;font-weight:bold;margin-left:75px" icon="ui-icon-suitcase" value="Panier" action="#{ligneCommandeMB.getAllLignes}" />
+   		
+   		  		   
+   		 <p:menuitem style="font-weight:bold;margin-left:600px" icon="ui-icon-home" value="admin" url="login.xhtml"  />
+   		<f:facet name="options">
+            <p:inputText style="margin-right:10px" placeholder="Search"/>   
+            <p:menuitem style="font-weight:bold;margin-left:700px" icon="ui-icon-home" value="admin" url="login.xhtml"  />  
+        </f:facet>
+ 	  
+    </p:menubar>
+</h:form>
+	</ui:composition>
+
+</h:body>
+
+</html>
