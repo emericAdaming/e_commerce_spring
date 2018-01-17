@@ -2,41 +2,39 @@ package fr.adaming.dao;
 
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import fr.adaming.dao.Categorie;
-import fr.adaming.dao.Produit;
+import fr.adaming.modele.Categorie;
+import fr.adaming.modele.Produit;
 
-@Stateless
+@Repository
 public class ProduitDaoImpl implements IProduitDao {
 
-	@PersistenceContext(unitName = "eCommerce_V1")
-	private EntityManager em;
-
-	// Setter pour l'em
-
-	public void setEm(EntityManager em) {
-		this.em = em;
+	@Autowired //injection du collaborateur sf
+	private SessionFactory sf;
+		
+	public void setSf(SessionFactory sf) {
+		this.sf = sf;
 	}
 
 	@Override
 	public List<Produit> getProduitsCategorie(Categorie c) {
-
+		Session s=sf.getCurrentSession();
 		// Ecrire la requête
 		String req = "SELECT p FROM Produit p WHERE p.categorie=:pCategorie";
 
 		// Création du query
-		Query query = em.createQuery(req);
+		Query query = s.createQuery(req);
 
 		// Definition des parametres
 		query.setParameter("pCategorie", c);
 
 		// Envoie de la requete et récupération de la liste
-		List<Produit> p_list=query.getResultList();		
+		List<Produit> p_list=query.list();	
 		for(Produit element:p_list){
 			System.out.println("Element trouve :"+element);
 		}
@@ -48,32 +46,34 @@ public class ProduitDaoImpl implements IProduitDao {
 
 	@Override
 	public List<Produit> getProduitsSelect() {
+		Session s=sf.getCurrentSession();
 		// Ecrire la requête
 		String req = "SELECT p FROM Produit p WHERE p.selectionne=true";
 
 		// Création du query
-		Query query = em.createQuery(req);
+		Query query = s.createQuery(req);
 
 		// Envoie de la requete et récupération de la liste
 		
-		return query.getResultList();
+		return query.list();
 	}
 
 	@Override
 	public Produit addProduit(Produit p) {
+		Session s=sf.getCurrentSession();
 		// Ajouter le produit à la BDD
-		em.persist(p);
+		s.save(p);
 		return p;
 	}
 
 	@Override
 	public void deleteProduit(Produit p) {
-
+		Session s=sf.getCurrentSession();
 		// Ecrire la requete
 		String req="DELETE FROM Produit AS p WHERE p.idProduit=:pIdProduit";
 		
 		// Query 
-		Query query=em.createQuery(req);
+		Query query=s.createQuery(req);
 		
 		// Parametres
 		query.setParameter("pIdProduit", p.getIdProduit());
@@ -87,9 +87,9 @@ public class ProduitDaoImpl implements IProduitDao {
 
 	@Override
 	public Produit updateProduit(Produit p) {
-		
+		Session s=sf.getCurrentSession();
 		// Ecrire la requete
-		Produit pOut=em.find(Produit.class, p.getIdProduit());
+		Produit pOut=(Produit) s.get(Produit.class, p.getIdProduit());
 		pOut.setDesignation(p.getDesignation());
 		pOut.setDescription(p.getDescription());
 		pOut.setPrix(p.getPrix());
@@ -97,7 +97,7 @@ public class ProduitDaoImpl implements IProduitDao {
 		pOut.setPhoto(p.getPhoto());
 		pOut.setCategorie(p.getCategorie());
 		
-		em.merge(pOut);
+		s.saveOrUpdate(pOut);
 		
 		return pOut;
 	}

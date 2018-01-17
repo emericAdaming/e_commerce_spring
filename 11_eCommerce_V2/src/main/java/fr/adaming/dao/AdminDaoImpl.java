@@ -1,25 +1,26 @@
 package fr.adaming.dao;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import fr.adaming.modele.Admin;
 
+@Repository
 public class AdminDaoImpl implements IAdminDao {
 
 	@Autowired //injection du collaborateur sf
 	private SessionFactory sf;
-	
-	
-	// pas obligatoire
+		
 	public void setSf(SessionFactory sf) {
 		this.sf = sf;
 	}
 
 	@Override
 	public Admin isExist(Admin admin) throws Exception {
-		// Pas besoin de créer l'emf, l'em et d'ouvrir la tx
+		Session s=sf.getCurrentSession();
 
 		// Construire directement la requete JPQL
 		String req = "SELECT a FROM Admin AS a WHERE a.mail=:pMail AND a.mdp=:pMdp";
@@ -32,7 +33,7 @@ public class AdminDaoImpl implements IAdminDao {
 		query.setParameter("pMdp", admin.getMdp());
 
 		// Envoyer la requête et récupérer l'agent
-		Admin adminOut = (Admin) query.getSingleResult();
+		Admin adminOut = (Admin) query.uniqueResult();
 
 		return adminOut;
 

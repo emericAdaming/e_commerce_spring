@@ -2,68 +2,67 @@ package fr.adaming.dao;
 
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.Stateful;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import fr.adaming.dao.Categorie;
-import fr.adaming.dao.Produit;
+import fr.adaming.modele.Categorie;
 
-@Stateless
+
+
+@Repository
 public class CategorieDaoImpl implements ICategorieDao {
 	
-	@PersistenceContext(unitName="eCommerce_V1")
-	private EntityManager em;
-
-	// Setter pour l'entity Manager
-	public void setEm(EntityManager em) {
-		this.em = em;
+	@Autowired 
+	private SessionFactory sf;
+		
+	public void setSf(SessionFactory sf) {
+		this.sf = sf;
 	}
 	
 
 	@Override
 	public List<Categorie> getAllCategories() {
-		
+		Session s=sf.getCurrentSession();
 		// Ecrire la requete 
 		String req="SELECT c FROM Categorie c";
 		
 		// On crée la query
-		Query query=em.createQuery(req);
+		Query query=s.createQuery(req);
 		
 		// Envoyer la requete et recuperer la liste
-		List<Categorie> liste=query.getResultList();
+		List<Categorie> liste=query.list();
 		
 		return liste;
 	}
 	
 	public Categorie addCategorie(Categorie c){
-			
-		em.persist(c);
+		Session s=sf.getCurrentSession();	
+		s.save(c);
 		return c;
 	}
 
 
 	@Override
 	public byte[] getCategorieById(int id_categorie) {
+		Session s=sf.getCurrentSession();
 		System.out.println("********** Recuperer categorie by id ****************");
 		Categorie c;
 		try{
 		byte[] p;
 		// Ecrire la requete 
 		String req="SELECT c FROM Categorie c where c.idCategorie=:pId";			
-		Query query=em.createQuery(req);
+		Query query=s.createQuery(req);
 		query.setParameter("pId", (long)id_categorie);
 				
 		// Envoyer la requete et recuperer la liste
-		 c=(Categorie) query.getSingleResult();		 
+		 c=(Categorie) query.uniqueResult();	 
 		 return c.getPhoto();
 		 
 		}catch(Exception e){
 			e.printStackTrace();
-			System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 		}
 		
 		System.out.println("********** Retourne byte array ****************");
@@ -73,50 +72,51 @@ public class CategorieDaoImpl implements ICategorieDao {
 
 	@Override
 	public Categorie getCategorieByName(Categorie c) {
+		Session s=sf.getCurrentSession();
 		
 		// Ecrire la requete
 		String req="SELECT c FROM Categorie AS c WHERE c.nomCategorie=:pNomCategorie";
 		
 		// On crée la query
-		Query query=em.createQuery(req);
+		Query query=s.createQuery(req);
 		
 		// PAramètres
 		query.setParameter("pNomCategorie", c.getNomCategorie());
 		
 		// Envoyer la requete et récupérer le résultat
-		Categorie categorieOut=(Categorie) query.getSingleResult();
+		Categorie categorieOut=(Categorie) query.uniqueResult();
 		
 		return categorieOut;
 	}
 
 	@Override
 	public void deleteCategorie(Categorie c){
-	
-	// Ecrire la requete
-			String req = "DELETE FROM Categorie AS c WHERE c.idCategorie=:pIdCategorie";
+		Session s=sf.getCurrentSession();
+		// Ecrire la requete
+		String req = "DELETE FROM Categorie AS c WHERE c.idCategorie=:pIdCategorie";
 
-			// Query
-			Query query = em.createQuery(req);
+		// Query
+		Query query =s.createQuery(req);
 
-			// Definir les paramètres
-			query.setParameter("pIdCategorie", c.getIdCategorie());
+		// Definir les paramètres
+		query.setParameter("pIdCategorie", c.getIdCategorie());
 
-			// Executer la requete
-			query.executeUpdate();
+		// Executer la requete
+		query.executeUpdate();
 
 	}
 
 
 	@Override
 	public Categorie updateCategorie(Categorie c) {
-		
+		Session s=sf.getCurrentSession();
 		// Trouver la categorie à modifier
-		Categorie categorieOut=em.find(Categorie.class, c.getIdCategorie());
+		Categorie categorieOut=(Categorie) s.get(Categorie.class, c.getIdCategorie());
 		categorieOut.setDescription(c.getDescription());
 		categorieOut.setNomCategorie(c.getNomCategorie());
 		categorieOut.setPhoto(c.getPhoto());
 		
-		em.merge(categorieOut);
+		s.saveOrUpdate(categorieOut);
 		
 		return categorieOut;
 	}
