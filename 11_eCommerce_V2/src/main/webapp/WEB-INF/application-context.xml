@@ -32,7 +32,7 @@
 		<!-- Injection du collaborateur dataSource -->
 		<property name="dataSource" ref="dataSourceBean"/>
 		<!-- Specifier les classes annotés par les annotations JPA -->
-		<property name="packagesToScan" value="fr.adaming.model"/>
+		<property name="packagesToScan" value="fr.adaming.modele"/>
 		<!-- Injecter les props de hibernate -->
 		<property name="hibernateProperties">
 			<props>
