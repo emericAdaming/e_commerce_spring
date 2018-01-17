@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -18,9 +19,9 @@ import org.primefaces.model.UploadedFile;
 
 import javax.faces.context.FacesContext;
 
-import fr.adaming.dao.Categorie;
-import fr.adaming.dao.LigneCommande;
-import fr.adaming.dao.Produit;
+import fr.adaming.modele.Categorie;
+import fr.adaming.modele.LigneCommande;
+import fr.adaming.modele.Produit;
 import fr.adaming.service.ICategorieService;
 import fr.adaming.service.ILigneCommandeService;
 import fr.adaming.service.IProduitService;
@@ -29,15 +30,17 @@ import fr.adaming.service.IProduitService;
 @SessionScoped
 public class ProduitManagedBean implements Serializable {
 
-	@EJB
+	@ManagedProperty(value="pService")
 	private IProduitService produitService;
 
-	@EJB
+	@ManagedProperty(value="caService")
 	private ICategorieService categorieService;
 
-	@EJB
+	@ManagedProperty(value="lcService")
 	private ILigneCommandeService ligneCommandeService;
 
+	// Attributs
+	
 	private Produit produit;
 
 	private List<Produit> listeProduits;
@@ -63,15 +66,21 @@ public class ProduitManagedBean implements Serializable {
 
 	}
 
-	// Getters & Setters
-
-	public IProduitService getProduitService() {
-		return produitService;
+	// Setter pour l'injection dépendance
+	public void setCategorieService(ICategorieService categorieService) {
+		this.categorieService = categorieService;
 	}
 
+	public void setLigneCommandeService(ILigneCommandeService ligneCommandeService) {
+		this.ligneCommandeService = ligneCommandeService;
+	}
+	
 	public void setProduitService(IProduitService produitService) {
 		this.produitService = produitService;
 	}
+	
+	// Getters & Setters
+
 
 	public Produit getProduit() {
 		return produit;

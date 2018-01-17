@@ -3,16 +3,15 @@ package fr.adaming.managedBeans;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
-import fr.adaming.dao.Client;
-import fr.adaming.dao.Commande;
-import fr.adaming.dao.LigneCommande;
+import fr.adaming.modele.Client;
+import fr.adaming.modele.Commande;
 import fr.adaming.service.CommandeServiceImpl;
 import fr.adaming.service.IClientService;
 import fr.adaming.service.ICommandeService;
@@ -22,13 +21,13 @@ import fr.adaming.service.ILigneCommandeService;
 @RequestScoped
 public class CommandeManagedBean {
 
-	@EJB
+	@ManagedProperty(value="#{coService}")
 	ICommandeService commandeService;
 
-	@EJB
+	@ManagedProperty(value="#{lcService}")
 	ILigneCommandeService ligneCommandeService;
 
-	@EJB
+	@ManagedProperty(value="#{clService}")
 	IClientService clientService;
 
 	private Commande commande;
@@ -49,7 +48,21 @@ public class CommandeManagedBean {
 
 	}
 
+	// Setter pour l'injection dépendance
+	public void setCommandeService(ICommandeService commandeService) {
+		this.commandeService = commandeService;
+	}
+
+	public void setLigneCommandeService(ILigneCommandeService ligneCommandeService) {
+		this.ligneCommandeService = ligneCommandeService;
+	}
+
+	public void setClientService(IClientService clientService) {
+		this.clientService = clientService;
+	}
+	
 	// Getters & Setters
+
 
 	public Commande getCommande() {
 		return commande;

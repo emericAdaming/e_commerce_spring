@@ -7,8 +7,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Properties;
 
-import javax.ejb.EJB;
+
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.mail.Authenticator;
@@ -27,24 +28,24 @@ import javax.swing.ImageIcon;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.lowagie.text.Element;
 
-import fr.adaming.dao.Client;
-import fr.adaming.dao.LigneCommande;
+import fr.adaming.modele.Client;
+import fr.adaming.modele.LigneCommande;
 import fr.adaming.service.IClientService;
 
 @ManagedBean(name="clientMB")
 @RequestScoped
 public class ClientManagedBean implements Serializable {
 
-	@EJB
+	@ManagedProperty(value="#{clService}")
 	private IClientService clientService;
-	
+
 	private Client client;
 	
 	private List<LigneCommande> listeLignes;
@@ -55,6 +56,11 @@ public class ClientManagedBean implements Serializable {
 	public ClientManagedBean() {
 		this.client = new Client();
 		this.maSession = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+	}
+	
+	// Setter pour l'injection dépendance
+	public void setClientService(IClientService clientService) {
+		this.clientService = clientService;
 	}
 	
 	// Getters & Setters
