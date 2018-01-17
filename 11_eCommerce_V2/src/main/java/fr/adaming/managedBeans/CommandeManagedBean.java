@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.adaming.modele.Client;
 import fr.adaming.modele.Commande;
+import fr.adaming.modele.LigneCommande;
 import fr.adaming.service.CommandeServiceImpl;
 import fr.adaming.service.IClientService;
 import fr.adaming.service.ICommandeService;

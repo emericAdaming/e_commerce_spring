@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.adaming.dao.IProduitDao;
+import fr.adaming.modele.Categorie;
 import fr.adaming.modele.Produit;
 
 @Service("pService") // Déclarer la classe comme un bean (Service)
