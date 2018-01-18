@@ -32,7 +32,7 @@ import sun.misc.IOUtils;
 @SessionScoped
 public class CategorieManagedBean implements Serializable {
 
-	@ManagedProperty(value="#{caService}")
+	@ManagedProperty(value = "#{caService}")
 	private ICategorieService categorieService;
 
 	private Categorie categorie;
@@ -53,7 +53,7 @@ public class CategorieManagedBean implements Serializable {
 	public CategorieManagedBean() {
 		this.categorie = new Categorie();
 	}
-	
+
 	// Setter pour l'injection dépendance
 	public void setCategorieService(ICategorieService categorieService) {
 		this.categorieService = categorieService;
@@ -127,6 +127,9 @@ public class CategorieManagedBean implements Serializable {
 		categorie = new Categorie();
 		image = " ";
 
+		// Mettre à jour la liste des catégories (pour l'ajout produit)
+		getDesignationList();
+
 		// Récupérer les categories
 		getAllCategories();
 
@@ -141,6 +144,9 @@ public class CategorieManagedBean implements Serializable {
 		categorieService.updateCategorie(categorie);
 		categorie = new Categorie();
 		image = " ";
+
+		// Mettre à jour la liste des catégories (pour l'ajout produit)
+		getDesignationList();
 
 		// Récupérer les categories
 		getAllCategories();
@@ -157,6 +163,9 @@ public class CategorieManagedBean implements Serializable {
 
 		categorie = new Categorie();
 		image = " ";
+
+		// Mettre à jour la liste des catégories (pour l'ajout produit)
+		getDesignationList();
 
 		// Récupérer les categories
 		getAllCategories();
@@ -202,6 +211,11 @@ public class CategorieManagedBean implements Serializable {
 
 	public void getDesignationList() {
 		categorie_designation = new ArrayList<String>();
+		
+		// Mettre à jour la liste de catégories
+		getAllCategories();
+		
+		// Ajouter à categorie designation
 		for (Categorie element : listeCategories) {
 			if (element.getNomCategorie() != null)
 				categorie_designation.add(element.getNomCategorie());
