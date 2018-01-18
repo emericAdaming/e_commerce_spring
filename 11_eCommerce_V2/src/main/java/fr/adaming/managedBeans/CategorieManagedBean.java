@@ -25,7 +25,10 @@ import org.primefaces.model.UploadedFile;
 import java.awt.*;
 
 import fr.adaming.modele.Categorie;
+import fr.adaming.modele.Produit;
 import fr.adaming.service.ICategorieService;
+import fr.adaming.service.IProduitService;
+import fr.adaming.service.ProduitServiceImpl;
 import sun.misc.IOUtils;
 
 @ManagedBean(name = "categorieMB")
@@ -34,6 +37,10 @@ public class CategorieManagedBean implements Serializable {
 
 	@ManagedProperty(value = "#{caService}")
 	private ICategorieService categorieService;
+	
+	@ManagedProperty(value="#{pService}")
+	private IProduitService produitService;
+
 
 	private Categorie categorie;
 	private List<String> categorie_designation;
@@ -58,8 +65,13 @@ public class CategorieManagedBean implements Serializable {
 	public void setCategorieService(ICategorieService categorieService) {
 		this.categorieService = categorieService;
 	}
+	
 
 	// Getters & Setteres
+
+	public void setProduitService(IProduitService produitService) {
+		this.produitService = produitService;
+	}
 
 	public Categorie getCategorie() {
 		return categorie;
@@ -245,6 +257,20 @@ public class CategorieManagedBean implements Serializable {
 			list_filtre_image.add(element);
 		}
 		listeCategories = list_filtre_image;
+	}
+	
+	public void afficheListe(){
+		
+		System.out.println("Afficher tous les produits");
+		
+		for(Categorie c:listeCategories){
+			System.out.println("***Categorie:"+c.getNomCategorie());
+			List<Produit> list=produitService.getProduitsCategorie(c);
+			for(Produit p:list){
+				System.out.println("******Produit:"+p.getDesignation());
+			}
+		}
+		
 	}
 
 }

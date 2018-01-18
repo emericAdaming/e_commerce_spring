@@ -96,8 +96,14 @@ public class Categorie {
 	}
 
 	
-//****************************************************
-	
+	public List<Produit> getList_produit() {
+		return list_produit;
+	}
+
+	public void setList_produit(List<Produit> list_produit) {
+		this.list_produit = list_produit;
+	}
+	//****************************************************
 
 	@Override
 	public String toString() {

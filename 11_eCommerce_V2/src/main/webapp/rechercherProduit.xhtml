@@ -18,6 +18,9 @@
 	<ui:insert name="pageHeader">
 		<ui:include src="/template/layout.xhtml"></ui:include>
 	</ui:insert>
+	<f:metadata>
+    	<f:event type="preRenderView" listener="#{categorieMB.afficheListe}" />
+	</f:metadata>
 	
 	<h1 style="color: green; text-align: center">Rechercher produit</h1>
 	
@@ -35,27 +38,7 @@
 <div class="ui-g" style="margin-left:5%" >
     <div class="ui-g-12">----</div>
 	<h:form>
-	<c:forEach items="#{categorieMB.listeCategories}" var="categorie" varStatus="metadata" >
-	 
-	  <div class="ui-g-12 ui-md-3">
-	  <div class="ui-g-12 " style="border-style: solid;border-width:1px;border-color:grey;background-color:rgba(215,215,215,0.8)">
-	   	
-	   	<p:commandLink action="#{produitMB.getProduitsCategorie}">
-	   	<div class="ui-g-12" style="color:black"><h:outputText style="color:black" value="#{categorie.nomCategorie}"/></div>
-	  	<f:setPropertyActionListener value="#{categorie}" target="#{produitMB.categorie}"></f:setPropertyActionListener>
-	  	<h:graphicImage  class="imageTaille" value="#{categorie.image}"/>
-	  	</p:commandLink>
-	  	<div class="ui-g-12 "><h:outputText style="color:black" value="#{categorie.description}"/></div>
-	  	<c:if test="${not empty sessionScope.adminSession}">
-	  	<div class="ui-g-6 "> <p:commandButton value="Supprimer" ></p:commandButton> </div>
-	  	<div class="ui-g-6 "> <p:commandButton value="Modifier" ></p:commandButton> </div>
-	  	</c:if>
-	  </div>
-		<div class="ui-g-12"></div>
-	</div>
-	
-	<div class="ui-g-12 ui-md-1"></div>
-	</c:forEach>
+
 	 </h:form>
  </div>
 	

@@ -178,8 +178,9 @@ public class ProduitManagedBean implements Serializable {
 		produitService.addProduit(this.produit);
 
 		// Récupérer la nouvelle liste à partir de la BDD
-		this.listeProduits = produitService.getProduitsCategorie(categorieByName);
-
+		 this.listeProduits= produitService.getProduitsCategorie(categorieByName);
+		 
+		
 		// Metre à jour la liste dans la session
 		maSession.setAttribute("listeProduits", this.listeProduits);
 
@@ -209,8 +210,17 @@ public class ProduitManagedBean implements Serializable {
 			System.out.println(this.categorie);
 
 			// Récupérer la nouvelle liste à partir de la BDD
-			this.listeProduits = produitService.getProduitsCategorie(this.categorie);
-
+			
+			List<Produit> listOut= produitService.getProduitsCategorie(this.categorie);
+			// Transformer byte code en string image
+			for (Produit element : listOut) {
+				if (element.getPhoto() == null) {
+					element.setImage(null);
+				} else {
+					element.setImage("data:image/png;base64," + Base64.encodeBase64String(element.getPhoto()));
+				}
+				this.listeProduits.add(element);
+			}
 			// Metre à jour la liste dans la session
 			maSession.setAttribute("listeProduits", this.listeProduits);
 
@@ -226,7 +236,15 @@ public class ProduitManagedBean implements Serializable {
 			System.out.println(this.categorie);
 
 			// Récupérer la nouvelle liste à partir de la BDD
-			this.listeProduits = produitService.getProduitsCategorie(this.categorie);
+			List<Produit> listOut= produitService.getProduitsCategorie(this.categorie);
+			for (Produit element : listOut) {
+				if (element.getPhoto() == null) {
+					element.setImage(null);
+				} else {
+					element.setImage("data:image/png;base64," + Base64.encodeBase64String(element.getPhoto()));
+				}
+				this.listeProduits.add(element);
+			}
 
 			// Metre à jour la liste dans la session
 			maSession.setAttribute("listeProduits", this.listeProduits);
