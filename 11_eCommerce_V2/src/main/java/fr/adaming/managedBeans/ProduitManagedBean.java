@@ -30,13 +30,13 @@ import fr.adaming.service.IProduitService;
 @SessionScoped
 public class ProduitManagedBean implements Serializable {
 
-	@ManagedProperty(value="pService")
+	@ManagedProperty(value="#{pService}")
 	private IProduitService produitService;
 
-	@ManagedProperty(value="caService")
+	@ManagedProperty(value="#{caService}")
 	private ICategorieService categorieService;
 
-	@ManagedProperty(value="lcService")
+	@ManagedProperty(value="#{lcService}")
 	private ILigneCommandeService ligneCommandeService;
 
 	// Attributs
