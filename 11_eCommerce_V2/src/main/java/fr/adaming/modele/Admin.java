@@ -62,6 +62,11 @@ public class Admin {
 		public void setMdp(String mdp) {
 			this.mdp = mdp;
 		}
+
+		@Override
+		public String toString() {
+			return "Admin [id=" + id + ", mail=" + mail + ", mdp=" + mdp + "]";
+		}
 		
 		
 		

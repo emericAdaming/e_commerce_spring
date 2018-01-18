@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.itextpdf.text.log.SysoCounter;
+
 import fr.adaming.modele.Admin;
 
 @Repository
@@ -20,6 +22,7 @@ public class AdminDaoImpl implements IAdminDao {
 
 	@Override
 	public Admin isExist(Admin admin) throws Exception {
+		System.out.println("Recup Admin");
 		Session s=sf.getCurrentSession();
 
 		// Construire directement la requete JPQL
@@ -34,6 +37,7 @@ public class AdminDaoImpl implements IAdminDao {
 
 		// Envoyer la requête et récupérer l'agent
 		Admin adminOut = (Admin) query.uniqueResult();
+		System.out.println("Admin:"+adminOut);
 
 		return adminOut;
 
