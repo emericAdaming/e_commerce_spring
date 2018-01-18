@@ -15,7 +15,7 @@
 		<ui:include src="/template/layout.xhtml"></ui:include>
 	</ui:insert>
 
-	<h1 style="text-align:center">Panier</h1>
+	<h1 style="text-align: center">Panier</h1>
 
 	<h:form>
 		<p:commandButton value="envoie mail" action="#{clientMB.sendMail}"></p:commandButton>
@@ -25,7 +25,7 @@
 		<p:column headerText="ID">
 			<h:outputText value="#{ligne.id}" />
 		</p:column>
-		
+
 		<p:column headerText="Prix">
 			<h:outputText value="#{ligne.produit.prix}" />
 		</p:column>
@@ -60,6 +60,8 @@
 					action="#{ligneCommandeMB.quantiteLigneCommande}" update="@all">
 					<f:setPropertyActionListener value="#{ligne.id}"
 						target="#{ligneCommandeMB.ligne.id}"></f:setPropertyActionListener>
+					<f:setPropertyActionListener value="#{ligne.produit}"
+						target="#{ligneCommandeMB.ligne.produit}"></f:setPropertyActionListener>
 				</p:commandButton>
 			</h:form>
 		</p:column>
@@ -70,8 +72,8 @@
 	<h1>Montant total : #{ligneCommandeMB.total}€</h1>
 
 	<h:form>
-		<p:commandButton value="Passer la commande"
-			action="ajoutClient" update="@all">
+		<p:commandButton value="Passer la commande" action="ajoutClient"
+			update="@all">
 		</p:commandButton>
 	</h:form>
 
