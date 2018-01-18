@@ -88,9 +88,20 @@ public class ClientManagedBean implements Serializable {
 		return "ajoutClient";
 	}
 	
-	public String inscriptionClient(){
-		//this.client=clientService.ajouterClient(this.client);
+	public String connexionClient(){
+		this.client=clientService.isExist(this.client);
+		maSession.setAttribute("clientSession", this.client);
 		return "accueil";
+	}
+	
+	public String seDeconnecter(){
+		System.out.println("DEconnexion client");
+		this.client=null;
+		//FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("adminSession", null);
+		// Metre à jour la liste dans la session
+		maSession.setAttribute("clientSession", null);
+		//permet de refresh accueil
+		return "deconnection"; 
 	}
 	
 	

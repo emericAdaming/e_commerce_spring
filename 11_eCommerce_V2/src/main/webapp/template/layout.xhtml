@@ -16,7 +16,10 @@
 		<c:choose>      
          <c:when test = "${not empty sessionScope.adminSession}">
 			<ui:include src="/template/hearderAdmin.xhtml"></ui:include>
-         </c:when>                
+         </c:when>  
+         <c:when test = "${not empty sessionScope.clientSession}">
+			<ui:include src="/template/hearderClient.xhtml"></ui:include>
+         </c:when>                 
          <c:otherwise>
            <ui:include src="/template/header.xhtml"></ui:include>
          </c:otherwise>
