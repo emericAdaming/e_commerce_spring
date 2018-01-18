@@ -23,7 +23,7 @@
 	
 	<h:form>
     <h:panelGrid columns="3">
-        <h:outputText value="Recherche: " />
+        <h:outputText value="Recherche categorie: " />
         <p:inputText id="idResearch" value="#{categorieMB.recherche}">
             <p:ajax event="keyup" update="lo" listener="#{categorieMB.rechercheCategorie}" />
         </p:inputText>

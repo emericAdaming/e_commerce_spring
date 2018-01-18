@@ -6,4 +6,6 @@ public interface IClientDao {
 
 	public Client ajouterClient(Client c);
 	
+	public Client isExist(Client c);
+	
 }

@@ -88,6 +88,10 @@ public class ClientManagedBean implements Serializable {
 		return "ajoutClient";
 	}
 	
+	public String inscriptionClient(){
+		//this.client=clientService.ajouterClient(this.client);
+		return "accueil";
+	}
 	
 	
 //**********************************************************************************************************	

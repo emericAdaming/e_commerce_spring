@@ -1,5 +1,6 @@
 package fr.adaming.dao;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,18 @@ public class ClientDaoImpl implements IClientDao {
 		s.save(c); // Le client rentré est sans ID
 		
 		return c; // Le client retourné est avec ID
+	}
+
+
+	@Override
+	public Client isExist(Client c) {
+		Session s=sf.getCurrentSession();
+		String req="SELECT c FROM Client As c where c.nomClient=:pNom AND c.mdp=:pMdp";
+		Query q=s.createQuery(req);
+		q.setParameter("pNom", c.getNomClient());
+		q.setParameter("pMdp", c.getMdp());
+		Client clientOut=(Client) q.uniqueResult();
+		return clientOut;
 	}
 
 }

@@ -21,6 +21,7 @@ public class Client {
 	private String adresse;
 	private String email;
 	private String tel;
+	private String mdp;
 	
 	@OneToMany(mappedBy="client",cascade=CascadeType.ALL)
 	private List<Commande> list_commande;
@@ -81,6 +82,12 @@ public class Client {
 	}
 	
 	
+	public String getMdp() {
+		return mdp;
+	}
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
+	}
 	public List<Commande> getList_commande() {
 		return list_commande;
 	}

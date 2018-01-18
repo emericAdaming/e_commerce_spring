@@ -26,5 +26,11 @@ public class ClientServiceImpl implements IClientService{
 		return clientDao.ajouterClient(c);
 	}
 
+	@Override
+	public Client isExist(Client c) {
+	
+		return clientDao.isExist(c);
+	}
+
 
 }

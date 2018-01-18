@@ -126,8 +126,11 @@ public class CategorieManagedBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		
 		getAllCategories();
 		getDesignationList();
+		afficheListe();
+		
 	}
 
 	// Méthodes métiers
@@ -234,7 +237,10 @@ public class CategorieManagedBean implements Serializable {
 		}
 
 	}
-
+	
+	/**
+	 * 
+	 */
 	public void rechercheCategorie() {
 		System.out.println("Recherche ajax");
 		List<Categorie> list_filtre = new ArrayList<Categorie>();
@@ -259,16 +265,71 @@ public class CategorieManagedBean implements Serializable {
 		listeCategories = list_filtre_image;
 	}
 	
+	/**
+	 * 
+	 */
+	public void rechercheProduitCategorie() {
+		System.out.println("Recherche ajax");
+		System.out.println("Afficher tous les produits");
+		List<Categorie> listC=categorieService.getAllCategories();
+		this.listeCategories=new ArrayList<Categorie>();
+		for(Categorie c:listC){
+			System.out.println("***Categorie:"+c.getNomCategorie());
+			// on met a jour l'image de la categorie
+			if (c.getPhoto() == null) {
+				c.setImage(null);
+			} else {
+				c.setImage("data:image/png;base64," + Base64.encodeBase64String(c.getPhoto()));
+			}
+			List<Produit> list=produitService.getProduitsCategorie(c);	
+			List<Produit> list_AvecPhoto=new ArrayList<Produit>();
+			for(Produit p:list){
+			  if(p.getDesignation().startsWith(recherche)){
+				if (p.getPhoto() == null) {
+						p.setImage(null);
+				} else {
+						p.setImage("data:image/png;base64," + Base64.encodeBase64String(p.getPhoto()));
+				}
+					list_AvecPhoto.add(p);
+			   }
+			}
+			//rajoute listes des produits de chaque categorie
+			c.setList_produit(list_AvecPhoto);
+			this.listeCategories.add(c);
+		}
+	}
+	
+	/**
+	 * 
+	 */
 	public void afficheListe(){
 		
 		System.out.println("Afficher tous les produits");
-		
-		for(Categorie c:listeCategories){
+		List<Categorie> listC=categorieService.getAllCategories();
+		this.listeCategories=new ArrayList<Categorie>();
+		for(Categorie c:listC){
 			System.out.println("***Categorie:"+c.getNomCategorie());
-			List<Produit> list=produitService.getProduitsCategorie(c);
-			for(Produit p:list){
-				System.out.println("******Produit:"+p.getDesignation());
+			// on met a jour l'image de la categorie
+			if (c.getPhoto() == null) {
+					c.setImage(null);
+			} else {
+					c.setImage("data:image/png;base64," + Base64.encodeBase64String(c.getPhoto()));
 			}
+			List<Produit> list=produitService.getProduitsCategorie(c);	
+			List<Produit> list_AvecPhoto=new ArrayList<Produit>();
+			for(Produit p:list){
+				if (p.getPhoto() == null) {
+						p.setImage(null);
+				} else {
+						p.setImage("data:image/png;base64," + Base64.encodeBase64String(p.getPhoto()));
+				}
+					//on remplit la liste de produit avec produit + son image
+					list_AvecPhoto.add(p);
+			}
+			
+			//rajoute listes des produits de chaque categorie
+			c.setList_produit(list_AvecPhoto);
+			this.listeCategories.add(c);
 		}
 		
 	}
