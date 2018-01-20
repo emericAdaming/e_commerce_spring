@@ -21,13 +21,13 @@
 	<h:form>
 	<h:panelGrid columns="2">
 	
-	Nom:<h:inputText value="#{clientMB.client.nomClient}"/>
-	Mdp:<h:inputText value="#{clientMB.client.mdp}"/>
-	Adresse:<h:inputText value="#{clientMB.client.adresse}"/>
-	Email:<h:inputText value="#{clientMB.client.email}"/>
-	Tel:<h:inputText value="#{clientMB.client.tel}"/>
+	Nom:<h:inputText value="#{commandeMB.client.nomClient}"/>
+	Mdp:<h:inputText value="#{commandeMB.client.mdp}"/>
+	Adresse:<h:inputText value="#{commandeMB.client.adresse}"/>
+	Email:<h:inputText value="#{commandeMB.client.email}"/>
+	Tel:<h:inputText value="#{commandeMB.client.tel}"/>
 	
-	<p:commandButton value="Ajouter" action="#{clientMB.ajouterClient}">
+	<p:commandButton value="Ajouter" action="#{commandeMB.ajouterCommande}">
 	</p:commandButton>
 	
 	</h:panelGrid>

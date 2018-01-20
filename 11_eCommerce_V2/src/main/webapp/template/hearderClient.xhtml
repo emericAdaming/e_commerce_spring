@@ -33,8 +33,11 @@
  
 	
          <p:menuitem icon="ui-icon-suitcase" value="Panier" action="#{ligneCommandeMB.getAllLignes}" />
+         
+       <p:menuitem style="margin-left:5px"  value="Notre Societe" url="presentationEntreprise.xhtml" />
+   		
    
- 		<p:menuitem icon="ui-icon-extlink" value="logout client" action="#{clientMB.seDeconnecter}"  />
+ 		<p:menuitem icon="ui-icon-extlink" style="margin-left:35px" value="logout client" action="#{clientMB.seDeconnecter}"  />
  		<f:facet name="options">
             <p:inputText style="margin-right:10px" placeholder="Search"/>         
         </f:facet>

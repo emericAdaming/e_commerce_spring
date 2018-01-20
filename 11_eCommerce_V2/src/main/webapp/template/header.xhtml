@@ -26,12 +26,15 @@
          <p:menuitem style="font-size:25px;font-weight:bold;margin-left:75px" icon="ui-icon-suitcase" value="Panier" action="#{ligneCommandeMB.getAllLignes}" />
    		
    		  
-   		  <p:submenu style="font-size:25px;font-weight:bold;margin-left:75px"  label="Client" >
+   		  <p:submenu style="font-size:25px;font-weight:bold;margin-left:75px"  label="Client" > 		
    		    <p:menuitem value="Se connecter" url="connexionClient.xhtml" />
             <p:menuitem  value="S'inscrire" url="ajoutClient.xhtml" />
         </p:submenu>
+        
+         <p:menuitem style="font-size:25px;font-weight:bold;margin-left:75px"  value="Notre Societe" url="presentationEntreprise.xhtml" />
+   		
    		  		   
-   		 <p:menuitem style="font-weight:bold;margin-left:400px" icon="ui-icon-home" value="admin" url="login.xhtml"  />
+   		 <p:menuitem style="font-weight:bold;margin-left:100px" icon="ui-icon-home" value="admin" url="login.xhtml"  />
    		<f:facet name="options">
             <p:inputText style="margin-right:10px" placeholder="Search"/>   
             <p:menuitem style="font-weight:bold;margin-left:700px" icon="ui-icon-home" value="admin" url="login.xhtml"  />  

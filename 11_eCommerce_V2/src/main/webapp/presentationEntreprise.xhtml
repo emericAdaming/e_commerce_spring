@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<h:head>
+	<title>Accueil</title>
+
+	 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"/>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCsk5EciTIIRoQFGasKhanhHFwhFmWslwA"/>
+	
+	<h:outputScript  library="js"  name="Gmap.js" />
+	<h:outputScript library="js" name="gmaps33.js" />
+</h:head>
+<h:body >
+
+			
+
+	
+	<ui:insert name="page">
+		<ui:include src="/template/layout.xhtml"></ui:include>
+	</ui:insert>
+	
+	
+	
+	<div id="container">
+        
+        <div id="destinationForm" style="margin-left:6%;top:50px">
+        <h1>Calculer Votre Trajet</h1>
+            <form action="" method="get" name="direction" id="direction">
+                <label>.Point de départ :</label>
+                <input type="text" name="origin" id="origin"/><br/>
+                <label >.Destination :</label>
+                <input type="text" name="destination" id="destination"/><br/>
+                <label >.Transport :</label>
+                <SELECT id="deplacement" name="nom" size="1">
+					<OPTION>Voiture</OPTION>
+					<OPTION>Velo</OPTION>
+					<OPTION>A pied !</OPTION>
+				</SELECT><br/>
+                <input type="button" value="Calculer l'itinéraire" onclick="javascript:calculate()"/>
+            </form>
+        </div>
+        
+    	<br/>
+        <div id="directions_map" style="width:500px;height:400px;margin-left:4%"/>
+        <div id="panel" style="width:500px;height:400px;margin-left:4%"></div>
+    </div>
+    
+    <div style="position:relative;left:60%;bottom:940px">
+   		 <h1>Presentation</h1>
+		<span>Notre entreprise: Pisicne ****</span><br/>
+		<span>Chiffre d'affaire: 1 500 168€</span><br/>
+		<span>Existence:20 ans</span><br/>
+		<span>Mail: ecommerce44000@gmail.com</span><br/>
+		<span>Tel: 05 45 85 97 62  </span><br/>
+	
+	</div>
+
+
+
+
+
+    	
+
+</h:body>
+</html>
