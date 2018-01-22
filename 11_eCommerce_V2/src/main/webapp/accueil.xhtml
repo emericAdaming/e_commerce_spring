@@ -18,12 +18,12 @@
 		<ui:include src="/template/layout.xhtml"></ui:include>
 	</ui:insert>
 	
-		<ul class="cont_etoile" style="font-size:25px"  onmouseover="note_couleur()" >
-			<a id="e1" class="etoile">★</a>
-			<a id="e2" class="etoile">★</a>
-			<a id="e3" class="etoile">★</a>
-			<a id="e4" class="etoile">★</a>
-			<a id="e5" class="etoile">★</a>
+		<ul class="cont_etoile" style="font-size:20px" id="divEtoile" onmouseout="finalValue()">
+			<a id="e1" class="etoile" onmouseover="note_couleur(1)">★</a>
+			<a id="e2" class="etoile" onmouseover="note_couleur(2)">★</a>
+			<a id="e3" class="etoile" onmouseover="note_couleur(3)">★</a>
+			<a id="e4" class="etoile" onmouseover="note_couleur(4)">★</a>
+			<a id="e5" class="etoile" onmouseover="note_couleur(5)">★</a>
 		</ul>
 	
 <p:outputPanel id="lol3">

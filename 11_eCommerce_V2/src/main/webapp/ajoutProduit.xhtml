@@ -34,8 +34,8 @@
       
      Photo:<p:fileUpload mode="advanced" auto="true"
 				fileUploadListener="#{produitMB.upload}" update="idImgProduit" />
-			<h:graphicImage id="idImgProduit" value="#{produitMB.image}" />
-			<br /> 
+			<h:graphicImage id="idImgProduit" value="#{produitMB.image}" /> 
+			<br/>
 	Reduction:<h:inputText value="#{produitMB.produit.reduction}" />
 		</h:panelGrid>
 		<p:commandButton value="Ajouter" action="#{produitMB.ajouterProduit}">

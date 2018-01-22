@@ -20,18 +20,18 @@ h1{
 }
 
 
-
+/*
 .cont_etoile {
    	margin:0;
 	padding:0;
-}
+}*/
 .cont_etoile a {
 color: #aaa;
    text-decoration: none;
-   font-size: 3em;
+   font-size: 1.4em;
    transition: color .4s;   
 }
-.cont_etoile a:hover{
+/*.cont_etoile a:hover{
    color: orange;
    cursor: pointer;
-}
+}*/
