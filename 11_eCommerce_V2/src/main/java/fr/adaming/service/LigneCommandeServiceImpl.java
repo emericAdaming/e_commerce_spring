@@ -2,6 +2,9 @@ package fr.adaming.service;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +28,15 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService{
 
 	@Override
 	public LigneCommande ajouterLigneCommande(LigneCommande ligne) {
-		// TODO Auto-generated method stub
+		// Tester la quantité disponible
+		if (ligne.getProduit().getQuantite()>ligne.getQuantite()){
 		return ligneCommandeDao.ajouterLigneCommande(ligne);
+		}
+		else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Info", "Quantité en stock insuffisante"));
+			return null;
+		}
 	}
 
 	@Override
@@ -43,8 +53,15 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService{
 
 	@Override
 	public LigneCommande updateLigneQte(LigneCommande ligne) {
-		// TODO Auto-generated method stub
+		// Test sur la quantitée
+		System.out.println("TEST QUANTITE"+ligne.getProduit());
+		if (ligne.getProduit().getQuantite()>ligne.getQuantite()){
 		return ligneCommandeDao.updateLigneQte(ligne);
+		}else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Info", "Quantité en stock insuffisante"));
+			return null;
+		}
 	}
 
 	@Override

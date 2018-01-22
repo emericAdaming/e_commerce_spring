@@ -32,8 +32,9 @@
         </p:selectOneMenu>
       
      Photo:<p:fileUpload mode="advanced" auto="true" fileUploadListener="#{produitMB.upload}" update="idImgProduit" />    
-     <h:graphicImage id="idImgProduit"  value="#{produitMB.image}"/>   
-	
+     <h:graphicImage id="idImgProduit"  value="#{produitMB.image}"/>
+			<br />  
+	Reduction:<h:inputText value="#{produitMB.produit.reduction}"/>
 	</h:panelGrid>
 	<p:commandButton value="Modifier" action="#{produitMB.updateProduit}" >
 	<f:setPropertyActionListener value="#{categorieMB.categorie.nomCategorie}" target="#{produitMB.categorie.nomCategorie}"></f:setPropertyActionListener>

@@ -41,6 +41,7 @@ public class ProduitDaoImpl implements IProduitDao {
 		if(p_list==null)
 			System.out.println("Aucun produit trouve");
 
+		System.out.println("******DAO******"+p_list);
 		return p_list;
 	}
 

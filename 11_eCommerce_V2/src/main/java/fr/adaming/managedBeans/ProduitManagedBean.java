@@ -190,7 +190,6 @@ public class ProduitManagedBean implements Serializable {
 	}
 
 	public String supprimerProduit() {
-
 		// Récupérer la ligne de commande a supprimer
 		try {
 			System.out.println("***************SUPPRIMER PRODUIT****************");
@@ -212,23 +211,19 @@ public class ProduitManagedBean implements Serializable {
 			// Récupérer la nouvelle liste à partir de la BDD
 			
 			List<Produit> listOut= produitService.getProduitsCategorie(this.categorie);
-			// Transformer byte code en string image
-			for (Produit element : listOut) {
-				if (element.getPhoto() == null) {
-					element.setImage(null);
-				} else {
-					element.setImage("data:image/png;base64," + Base64.encodeBase64String(element.getPhoto()));
-				}
-				this.listeProduits.add(element);
-			}
+			
+		
 			// Metre à jour la liste dans la session
-			maSession.setAttribute("listeProduits", this.listeProduits);
+			maSession.setAttribute("listeProduits", listOut);
 
 			produit = new Produit();
 			image = "";
 			return "produits";
 		} catch (Exception e) {
 			System.out.println("PRODUIT INEXISTANT DANS LIGNECOMMANDE");
+			
+			System.out.println("*******LISTE PRODUITS AVANT SUPPRESSION*********"+maSession.getAttribute("listeProduits"));
+			
 			
 			// Supprimer le produit
 			produitService.deleteProduit(this.produit);
@@ -237,6 +232,7 @@ public class ProduitManagedBean implements Serializable {
 
 			// Récupérer la nouvelle liste à partir de la BDD
 			List<Produit> listOut= produitService.getProduitsCategorie(this.categorie);
+			this.listeProduits.clear();
 			for (Produit element : listOut) {
 				if (element.getPhoto() == null) {
 					element.setImage(null);
@@ -247,8 +243,12 @@ public class ProduitManagedBean implements Serializable {
 			}
 
 			// Metre à jour la liste dans la session
-			maSession.setAttribute("listeProduits", this.listeProduits);
+			maSession.setAttribute("listeProduits", listOut);
 
+			System.out.println("********MB listOut********"+listOut);
+			
+			System.out.println("********MB session liste********"+maSession.getAttribute("listeProduits"));
+			
 			produit = new Produit();
 			image = "";
 			return "produits";
