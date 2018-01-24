@@ -12,15 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 import fr.adaming.dao.ILigneCommandeDao;
 import fr.adaming.modele.LigneCommande;
 
-
-
 @Service("lcService") // Déclarer la classe comme un bean (Service)
 @Transactional // Rendre toutes les méthodes transactionnables
-public class LigneCommandeServiceImpl implements ILigneCommandeService{
+public class LigneCommandeServiceImpl implements ILigneCommandeService {
 
 	@Autowired
 	ILigneCommandeDao ligneCommandeDao;
-	
+
 	// Setter pour l'injection dépendance
 	public void setLigneCommandeDao(ILigneCommandeDao ligneCommandeDao) {
 		this.ligneCommandeDao = ligneCommandeDao;
@@ -29,10 +27,9 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService{
 	@Override
 	public LigneCommande ajouterLigneCommande(LigneCommande ligne) {
 		// Tester la quantité disponible
-		if (ligne.getProduit().getQuantite()>ligne.getQuantite()){
-		return ligneCommandeDao.ajouterLigneCommande(ligne);
-		}
-		else {
+		if (ligne.getProduit().getQuantite() > ligne.getQuantite()) {
+			return ligneCommandeDao.ajouterLigneCommande(ligne);
+		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Info", "Quantité en stock insuffisante"));
 			return null;
@@ -54,10 +51,10 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService{
 	@Override
 	public LigneCommande updateLigneQte(LigneCommande ligne) {
 		// Test sur la quantitée
-		System.out.println("TEST QUANTITE"+ligne.getProduit());
-		if (ligne.getProduit().getQuantite()>ligne.getQuantite()){
-		return ligneCommandeDao.updateLigneQte(ligne);
-		}else {
+		System.out.println("TEST QUANTITE" + ligne.getProduit());
+		if (ligne.getProduit().getQuantite() > ligne.getQuantite()) {
+			return ligneCommandeDao.updateLigneQte(ligne);
+		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage("Info", "Quantité en stock insuffisante"));
 			return null;
@@ -72,8 +69,13 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService{
 
 	@Override
 	public LigneCommande quantiteLigneCommande(LigneCommande ligne) {
-		// TODO Auto-generated method stub
-		return ligneCommandeDao.quantiteLigneCommande(ligne);
+		if (ligne.getProduit().getQuantite() > ligne.getQuantite()) {
+			return ligneCommandeDao.quantiteLigneCommande(ligne);
+		} else {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage("Info", "Quantité en stock insuffisante"));
+			return null;
+		}
 	}
 
 	@Override
@@ -94,6 +96,4 @@ public class LigneCommandeServiceImpl implements ILigneCommandeService{
 		return ligneCommandeDao.getLigneByIdProduit(idProduit);
 	}
 
-	
-	
 }
