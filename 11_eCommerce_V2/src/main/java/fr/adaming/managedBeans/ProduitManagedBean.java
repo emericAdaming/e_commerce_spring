@@ -134,7 +134,6 @@ public class ProduitManagedBean implements Serializable {
 
 		// On ajoute la liste de produits dans la session
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeProduits", listeProduits);
-
 		for (Produit element : listOut) {
 			if (element.getPhoto() == null) {
 				element.setImage(null);

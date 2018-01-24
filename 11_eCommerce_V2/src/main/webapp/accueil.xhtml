@@ -38,11 +38,13 @@
 	  <div class="ui-g-12 " style="border-style: solid;border-width:1px;border-color:grey;background-color:rgba(215,215,215,0.8)">
 	   	
 	   	<p:commandLink action="#{produitMB.getProduitsCategorie}">
-	   	<div class="ui-g-12" style="color:black"><h:outputText style="color:black" value="#{categorie.nomCategorie}"/></div>
+	   	<div class="ui-g-12" style="color:black;font-weight:bold;text-align:center"><h:outputText style="color:black" value="#{categorie.nomCategorie}"/></div>
 	  	<f:setPropertyActionListener value="#{categorie}" target="#{produitMB.categorie}"></f:setPropertyActionListener>
-	  	<h:graphicImage  class="imageTaille" value="#{categorie.image}"/>
+	  	<div style="height:240px"><h:graphicImage  class="imageTaille" value="#{categorie.image}"/></div>
 	  	</p:commandLink>
-	  	<div class="ui-g-12 "><h:outputText style="color:black;font-size:12px;font-style:italic" value="#{categorie.description}"/></div>
+	  	
+	  	<div class="ui-g-12 " style="height:150px;overflow-y: auto;overflow-x:hidden"><h:outputText style="color:black;font-size:12px;font-style:italic" value="#{categorie.description}"/></div>
+	  	
 	  	<c:if test="${not empty sessionScope.adminSession}">
 	  	<div class="ui-g-6 "> <p:commandButton value="Supprimer" action="#{categorieMB.supprimerCategorie}" update="@all">
 	  	<f:setPropertyActionListener value="#{categorie}"
